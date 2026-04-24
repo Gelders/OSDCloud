@@ -1,37 +1,30 @@
-# OSDCloud
-OSDCloud scripts
-# Mijn Script Verzameling (Personal Script Archive)
+## ## UNDER PROGRESS
+# OSDCloud | Personal Script Archive
 
-Welkom! Dit is een centrale repository voor een selectie van mijn scripts, automatiseringen en tools.
+Welcome! This is a central repository for a curated selection of my scripts, automations, and tools, with a focus on OSDCloud and PowerShell environments.
 
-## Doel
-Het doel van deze repository is om een publieke back-up te hebben van mijn scripts. Zo kan ik ze makkelijk bereiken, delen of direct uitvoeren vanaf verschillende locaties.
+## Purpose
+The goal of this repository is to maintain a public backup of my scripts. This allows for easy access, sharing, and execution across different devices or cloud environments.
 
-## Inhoud
-*   📂 **/automatisering**: Scripts voor dagelijkse taken.
-*   📂 **/scripts**: Losse scripts (Python, Bash, PowerShell, etc.)
-*   📂 **/tools**: Kleine utility tools.
+## Contents
+*   📂 **/automation**: Scripts for daily workflows and automated tasks.
+*   📂 **/scripts**: General scripts (PowerShell, Python, Bash, etc.).
+*   📂 **/tools**: Small utility tools and helper functions.
+*   📂 **/URLs**: Usefull URLs.
 
-## Overzicht van Scripts
-Hieronder staat een overzicht van de belangrijkste scripts in deze repo:
+## Script Overview
+A quick look at the core scripts in this repository:
 
 
-| Script Naam | Taal | Beschrijving |
+| Script Name | Language | Description |
 | :--- | :--- | :--- |
-| `backup.py` | Python | Maakt automatisch backups van map X naar map Y. |
-| `cleaner.sh` | Bash | Verwijdert tijdelijke bestanden en downloads. |
-| `api_tool.py` | Python | Voorbeeld van een API connectie. |
-| `setup.ps1` | PowerShell | Basis setup voor nieuwe Windows machine. |
+| `SetupComplete.ps1` | PowerShell | Core OSDCloud configuration and setup. |
 
-## Hoe te gebruiken
-Je kunt de scripts klonen en direct gebruiken.
 
-```bash
-git clone https://github.com
-```
-
-### Voorwaarden
-Zorg ervoor dat je de benodigde talen hebt geïnstalleerd (Python, Node.js, etc.).
+### Prerequisites
+Make sure the required runtimes and modules are installed (e.g., PowerShell 5.1/7, or the OSD module).
+Look at the following link: https://www.learningittogether.com/posts/osdcloud-v2-getting-started/
 
 ## Disclaimer
-Deze scripts zijn bedoeld voor persoonlijk gebruik en educatieve doeleinden. Gebruik ze op eigen risico.
+This is for informational purposes only.
+These scripts are intended for personal use and educational purposes. Use them at your own risk. Always test scripts in a lab environment before deploying them to production.

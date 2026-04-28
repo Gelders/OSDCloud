@@ -1,5 +1,5 @@
 ## ## UNDER PROGRESS
-# OSDCloud | URLs | README.md
+# 📂 OSDCloud | URLs | README.md
 
 ## Purpose
 The goal of this repository is to curate a comprehensive collection of essential URLs, technical documentation, and reference materials related to OSDCloud (and Microsoft endpoint management). It serves as a central knowledge hub to help IT professionals quickly find 'verified' resources, in-depth explanations, and official guides for modern deployment workflows.

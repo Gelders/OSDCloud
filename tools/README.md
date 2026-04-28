@@ -11,6 +11,7 @@ This directory contains a curated selection of utilities, binaries, and speciali
 | :--- | :--- | :--- |
 | `Imaging Tools` | Essential utilities for creating bootable media and managing WIM/ISO files. | [Browse Imaging](./) |
 | `Hardware Tools` | Tools for BIOS updates, driver harvesting, and hardware diagnostics. | [Browse Hardware](./) |
+| `Execution Helpers`| **ServiceUI.exe**: Required for displaying user interfaces (UI) when running scripts in the SYSTEM context via Intune. | [Browse Tools](./) |
 | `Management` | Helper applications for managing Intune objects and Autopilot registrations. | [Browse Management](./) |
 
 ## Key Components

@@ -1,5 +1,5 @@
 ## ## UNDER PROGRESS
-# 📂 OSDCloud | Scripts | README.md
+# 📂 OSDCloud | scripts | README.md
 
 ## Purpose
 This directory serves as a library of standalone scripts and custom functions used to manage, configure, and troubleshoot Windows endpoints. These scripts are primarily focused on PowerShell-based automation for OSDCloud, Microsoft Intune, and general modern workplace management.

@@ -7,10 +7,10 @@ Welcome! This is a central repository for a curated selection of my scripts, aut
 The goal of this repository is to maintain a public backup of my scripts. This allows for easy access, sharing, and execution across different devices or cloud environments.
 
 ## Contents
-*   📂 **/automation**: Scripts for daily workflows and automated tasks.
-*   📂 **/scripts**: General scripts (PowerShell, Python, Bash, etc.).
-*   📂 **/tools**: Small utility tools and helper functions.
-*   📂 **/URLs**: Usefull URLs.
+*   📂 [**/URLs**](./URLs): Essential reference links and documentation.
+*   📂 [**/Automation**](./automation): Automated workflows and deployment logic.
+*   📂 [**/Scripts**](./scripts): PowerShell and batch scripts for custom configurations.
+*   📂 [**/Tools**](./tools): Utilities and binaries to support OSD and Intune.
 
 ## Script Overview
 A quick look at the core scripts in this repository:

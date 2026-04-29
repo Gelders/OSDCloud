@@ -1,5 +1,8 @@
 ﻿$ErrorActionPreference = 'Stop'
 
+$LogFile = Join-Path -Path "$env:ProgramData\Microsoft\IntuneManagementExtension\Logs\OSD\" -ChildPath "OSDCloud-AddSoftware.log"
+Start-Transcript -Path $LogFile -Verbose
+
 Write-Host "OSDCloud-AddSoftware.ps1 gevonden..." -ForegroundColor Cyan
 Write-Host "OSDCloud-AddSoftware script starten." -ForegroundColor Green
 
@@ -176,13 +179,16 @@ if (Test-Path $rootPath) {
             }
         }
     }
+    Stop-Transcript -Verbose
 }
 else {
     Write-Error "FOUT: De map 'SoftwareDistribution' is niet gevonden op $BasePath"
+    Stop-Transcript -Verbose
 }
 
 #EINDE BESLISSING
 } else {
     Write-Host "OSDCloud-AddSoftware geannuleerd." -ForegroundColor Red
+    Stop-Transcript -Verbose
     exit
 }

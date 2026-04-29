@@ -18,7 +18,7 @@ if ($beslissing -eq 0) {
 #  Combined Windows + HP Debloat Script (Native Only, No WMIC)
 # ============================================================
 
-$LogFile = Join-Path -Path "env:ProgramData\Microsoft\IntuneManagementExtension\Logs\OSD\" -ChildPath "OSDCloud-RemoveBloatware.log"
+$LogFile = Join-Path -Path "$env:ProgramData\Microsoft\IntuneManagementExtension\Logs\OSD\" -ChildPath "OSDCloud-RemoveBloatware.log"
 
 Function Log {
     param([string]$Message)

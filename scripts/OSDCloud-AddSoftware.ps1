@@ -1,16 +1,8 @@
 ﻿$ErrorActionPreference = 'Stop'
 
-#Pad naar OSDCloud-AddSoftware.ps1 script
-#$OSDCloud-AddSoftware = 'C:\OSDCloud\Scripts\SetupComplete\OOBE\OSDCloud-AddSoftware.ps1'
-
 Write-Host "OSDCloud-AddSoftware.ps1 gevonden..." -ForegroundColor Cyan
-
-#if (-not (Test-Path $OSDCloud-AddSoftware)) {
-#    Write-Host "OSDCloud-AddSoftware script niet gevonden: $OSDCloud-AddSoftware" -ForegroundColor Red
-#    exit 1
-#}
-
 Write-Host "OSDCloud-AddSoftware script starten." -ForegroundColor Green
+
 $titel = "OSDCloud-AddSoftware script gevonden"
 $vraag = "Wilt u de OfficeOne applicaties installeren of niet? `nWil je doorgaan met de actie?"
 $keuzes = @(

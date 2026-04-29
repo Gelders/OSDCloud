@@ -9,9 +9,11 @@ This directory serves as a library of standalone scripts and custom functions us
 
 | Category | Description | Resource / Link |
 | :--- | :--- | :--- |
+| `PowerShell` | Cleanup script to remove folders, scripts and also centralize the logfiles. | [Browse Cleanup](./CleanUp.ps1) |
 | `PowerShell` | Core PS1 scripts for OSDCloud customization, hardware checks, and post-deployment tasks. | [Browse PowerShell](./) |
 | `Configuration` | Scripts for applying registry tweaks, local policies, and system optimizations. | [Browse Configuration](./) |
 | `Deployment` | Task-specific scripts for application packaging and Autopilot maintenance. | [Browse Deployment](./) |
+
 
 ## Key Features
 - **Field Tested:** Most scripts originate from real-world technical consultant scenarios ("notes from the field").

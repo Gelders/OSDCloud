@@ -1,16 +1,8 @@
 ﻿$ErrorActionPreference = 'Stop'
-
-#Pad naar OSDCloud-RemoveBloatware.ps1 script
-#$OSDCloud_RemoveBloatware = 'C:\OSDCloud\Scripts\SetupComplete\OOBE\OSDCloud-RemoveBloatware.ps1'
-
+ 
 Write-Host "OSDCloud_RemoveBloatware script gevonden, starten." -ForegroundColor Green
-
-#if (-not (Test-Path $OSDCloud_RemoveBloatware)) {
-#    Write-Host "OSDCloud_RemoveBloatware script niet gevonden: $OSDCloud_RemoveBloatware" -ForegroundColor Red
-#    exit 1
-#}
-
 Write-Host "OSDCloud-RemoveBloatware.ps1 gestart..." -ForegroundColor Cyan
+
 $titel = "OSDCloud_RemoveBloatware script gevonden"
 $vraag = "Wilt u bloatware (HP/INTEL/WinApp) verwijderen? `nWil je doorgaan met de actie?"
 $keuzes = @(

@@ -24,7 +24,7 @@ if ($FoundScript) {
 
 Write-Host "[|] Start-DRI-Autopilot-OOBE.ps1 gestart..." -ForegroundColor Cyan
 
-$titel = "Autopilot script gevonden, starten: $AutoPilotScript"
+$titel = "Autopilot script"
 $vraag = "Autopilot script gevonden, starten: $AutoPilotScript `nWil je doorgaan met de actie?"
 $keuzes = @(
     New-Object System.Management.Automation.Host.ChoiceDescription "&Ja", "Voert het script uit."

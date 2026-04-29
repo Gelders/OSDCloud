@@ -19,44 +19,25 @@ Start-Process PowerShell -ArgumentList "-NoL -C Install-Module AutopilotOOBE -Fo
 Write-Host -ForegroundColor DarkGray "[+] Installing OSD PS Module"
 Start-Process PowerShell -ArgumentList "-NoL -C Install-Module OSD -Force -Verbose" -Wait
 
-#Write-Host " [+] Setting language to nl-BE" -ForegroundColor Cyan
-#Start-Process PowerShell -ArgumentList "-NoL -C $scriptFolderPath\Set-KeyboardLanguage.ps1" -Wait
 Write-Host " [+] Setting language to nl-BE - Github" -ForegroundColor Cyan
 Start-Process PowerShell -ArgumentList "-NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/Gelders/OSDCloud/refs/heads/main/scripts/Set-KeyboardLanguage.ps1" -Wait
 
-#Write-Host " [+] Installing embedded product key" -ForegroundColor Cyan
-#Start-Process PowerShell -ArgumentList "-NoL -C $scriptFolderPath\Install-EmbeddedProductKey.ps1" -Wait
 Write-Host " [+] Installing embedded product key - Github" -ForegroundColor Cyan
 Start-Process PowerShell -ArgumentList "-NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/Gelders/OSDCloud/refs/heads/main/scripts/Install-EmbeddedProductKey.ps1" -Wait
 
-#Write-Host " [+] Checking Autopilot prerequisites" -ForegroundColor Cyan
-#Start-Process PowerShell -ArgumentList "-NoL -C $scriptFolderPath\AP-Prereq.ps1" -Wait
 Write-Host " [+] Checking Autopilot prerequisites - Github" -ForegroundColor Cyan
 Start-Process PowerShell -ArgumentList "-NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/Gelders/OSDCloud/refs/heads/main/scripts/AP-Prereq.ps1" -Wait
-###
-###
+
 ### TOEVOEGING VAN ADD OSDCloud-AddSoftware en OSDCloud-RemoveBloatware
-#Write-Host " [+] Adding OfficeOne apps" -ForegroundColor Cyan
-#Start-Process PowerShell -ArgumentList "-NoL -C $scriptFolderPath\OSDCloud-AddSoftware.ps1" -Wait
 Write-Host " [+] Adding OfficeOne apps - Github" -ForegroundColor Cyan
 Start-Process PowerShell -ArgumentList "-NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/Gelders/OSDCloud/refs/heads/main/scripts/OSDCloud-AddSoftware.ps1" -Wait
 
-#Write-Host " [+] Removing Bloatware" -ForegroundColor Cyan
-#Start-Process PowerShell -ArgumentList "-NoL -C $scriptFolderPath\OSDCloud-RemoveBloatware.ps1" -Wait
 Write-Host " [+] Removing Bloatware - Github" -ForegroundColor Cyan
 Start-Process PowerShell -ArgumentList "-NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/Gelders/OSDCloud/refs/heads/main/scripts/OSDCloud-RemoveBloatware.ps1" -Wait
+### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 
-###
-###
-###
-#Write-Host " [+] Starting AutopilotOOBE" -ForegroundColor Cyan
-#Start-Process PowerShell -ArgumentList "-NoL -C $scriptFolderPath\Start-DRI-Autopilot-OOBE.ps1" -Wait
 Write-Host " [+] Starting AutopilotOOBE - Github" -ForegroundColor Cyan
 Start-Process PowerShell -ArgumentList "-NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/Gelders/OSDCloud/refs/heads/main/scripts/Start-DRI-Autopilot-OOBE.ps1" -Wait
-
-#Write-Host " [+] Not running cleanup"
-#Write-Host " [+] Running cleanup"
-#Start-Process PowerShell -ArgumentList "-NoL -C $scriptFolderPath\Cleanup.ps1" -Wait
 
 Write-Host " [+] Executing Cleanup Script - Github" -ForegroundColor Cyan
 Start-Process PowerShell -ArgumentList "-NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/Gelders/OSDCloud/refs/heads/main/scripts/CleanUp.ps1" -Wait
@@ -66,7 +47,6 @@ Write-Host " [+] Cleanup ScheduledTask" -ForegroundColor Cyan
 Unregister-ScheduledTask -TaskName "Scheduled Task for SendKeys" -Confirm:`$false
 Unregister-ScheduledTask -TaskName "Scheduled Task for OSDCloud post installation" -Confirm:`$false
 
-#write-host -ForegroundColor Green "[|] Restart-Computer -Force niet"
 Write-Host -ForegroundColor Green "[|] Restarting Computer"
 
 Stop-Transcript -Verbose

@@ -1,4 +1,4 @@
-﻿#CleanUp.ps1
+#CleanUp.ps1
 #https://gist.githubusercontent.com/AkosBakos/0b81812f5c6c6bc5b69495469c96be1b/raw/CleanUp.ps1
 $Global:Transcript = "$((Get-Date).ToString('yyyy-MM-dd-HHmmss'))-Cleanup-Script.log"
 Start-Transcript -Path (Join-Path "$env:ProgramData\Microsoft\IntuneManagementExtension\Logs\OSD\" $Global:Transcript) -ErrorAction Ignore
@@ -32,6 +32,7 @@ If (Test-Path -Path 'C:\OSDCloud') { Get-ChildItem -Path "C:\OSDCloud" -Exclude 
         #RunOnce register sleutel
         $cleanupCmd = "cmd.exe /c timeout /t 10 && rd /s /q `"$targetPath`""
         Set-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\RunOnce" -Name "OSDCloudCleanup" -Value $cleanupCmd
+        Write-Host " [+] REGISTER | RunOnce cleanup reg-key aangemaakt." -ForegroundColor Green
     }
  }
 If (Test-Path -Path 'C:\Drivers') { Remove-Item 'C:\Drivers' -Recurse -Force 

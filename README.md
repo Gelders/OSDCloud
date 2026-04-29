@@ -1,4 +1,8 @@
 ## ## UNDER PROGRESS
+
+Just go to: 'https://github.com/AkosBakos/OSDCloud' and his blog 'https://akosbakos.ch/'.
+It's so well explained and structured.
+
 # OSDCloud | Personal Script Archive
 
 Welcome! This is a central repository for a curated selection of my scripts, automations, and tools, with a focus on OSDCloud and PowerShell environments.

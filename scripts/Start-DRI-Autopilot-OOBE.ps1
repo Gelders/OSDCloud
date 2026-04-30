@@ -36,9 +36,9 @@ $beslissing = $Host.UI.PromptForChoice($titel, $vraag, $keuzes, 1) # 1 is de sta
 if ($beslissing -eq 0) {
     Write-Host "Actie wordt uitgevoerd..." -ForegroundColor Green
 #Autopilot script starten in dezelfde user context
-#& powershell.exe -NoProfile -ExecutionPolicy Bypass -File $AutoPilotScript
+& powershell.exe -NoProfile -ExecutionPolicy Bypass -File $AutoPilotScript
 
-Start-Process powershell -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$AutoPilotScript`"" -Verb RunAs
+#Start-Process powershell -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$AutoPilotScript`"" -Verb RunAs
 
 Stop-Transcript -Verbose
 

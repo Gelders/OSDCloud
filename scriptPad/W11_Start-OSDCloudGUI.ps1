@@ -1,0 +1,1 @@
+Start-OSDCloudGUI -BrandName "" -BrandColor "#17458a" -OSLanguage "nl-nl" -OSVersion "Windows 11" -OSEdition "Pro" -OSActivation "Retail" -RestartComputer -UpdateDiskDrivers -UpdateNetworkDrivers -UpdateSCSIDrivers -SyncMSUpCatDriverUSB -OEMActivation -WindowsUpdate -WindowsUpdateDrivers -WindowsDefenderUpdate

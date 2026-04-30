@@ -22,7 +22,7 @@ $Params = @{
     OSEdition = "Pro"
     OSLanguage = "nl-NL"
     OSName = "Windows 11 25H2 x64" 
-    Restart =$true
+    Restart = $true
     ZTI = $true
 }
 Start-OSDCloud @Params

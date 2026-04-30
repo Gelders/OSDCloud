@@ -10,6 +10,8 @@ The goal of this repository is to curate a comprehensive collection of essential
 | Category | Description | URL |
 | :--- | :--- | :--- |
 | `Technical Blog` | Akosbakos.ch is the personal technical blog of Ákos Bakos, a technical consultant specializing in Microsoft endpoint management. The site provides in-depth technical guides, scripts, and blog series primarily focused on Windows deployment automation, specifically OSDCloud, Microsoft Intune, and Autopilot. It serves as a resource for IT professionals looking for "notes from the field" and custom automation solutions for modern workplace environments. | https://akosbakos.ch/ |
+| ``OSDCloud ``Setup ``Guide`` | A practical guide explaining how to prepare the required runtimes and modules for OSDCloud (e.g., PowerShell 5.1/7, OSD module). Includes step‑by‑step instructions for getting started with OSDCloud v2. | [https://learningittogether.com/](https://www.learningittogether.com/posts/osdcloud-v2-getting-started/) |
+
 
 ## Disclaimer
 This is for informational purposes only.

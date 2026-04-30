@@ -1,4 +1,4 @@
-﻿# ============================================================
+# ============================================================
 # Start-DRI-Autopilot-OOBE.ps1
 # Draait in user context tijdens OOBE
 # ============================================================
@@ -24,7 +24,7 @@ if ($FoundScript) {
 
 Write-Host "[|] Start-DRI-Autopilot-OOBE.ps1 gestart..." -ForegroundColor Cyan
 
-$titel = "Autopilot script"
+$titel = "Autopilot script gevonden, starten: $AutoPilotScript"
 $vraag = "Autopilot script gevonden, starten: $AutoPilotScript `nWil je doorgaan met de actie?"
 $keuzes = @(
     New-Object System.Management.Automation.Host.ChoiceDescription "&Ja", "Voert het script uit."
@@ -36,7 +36,9 @@ $beslissing = $Host.UI.PromptForChoice($titel, $vraag, $keuzes, 1) # 1 is de sta
 if ($beslissing -eq 0) {
     Write-Host "Actie wordt uitgevoerd..." -ForegroundColor Green
 #Autopilot script starten in dezelfde user context
-& powershell.exe -NoProfile -ExecutionPolicy Bypass -File $AutoPilotScript
+#& powershell.exe -NoProfile -ExecutionPolicy Bypass -File $AutoPilotScript
+
+Start-Process powershell -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$AutoPilotScript`"" -Verb RunAs
 
 Stop-Transcript -Verbose
 

@@ -5,7 +5,7 @@
 #Wrapper‑script: start Autopilot
 #C:\OSDCloud\Scripts\SetupComplete\OOBE\Start-DRI-Autopilot-OOBE.ps1
 
-$ErrorActionPreference = 'Stop'
+#$ErrorActionPreference = 'Stop'
 
 Start-Transcript -Path "$env:ProgramData\Microsoft\IntuneManagementExtension\Logs\OSD\Start-DRI-Autopilot-OOBE.log" -ErrorAction Ignore | Out-Null
 

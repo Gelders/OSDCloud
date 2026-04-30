@@ -13,6 +13,8 @@ This directory serves as a library of standalone scripts and custom functions us
 | `PowerShell` | Core PS1 scripts for OSDCloud customization, hardware checks, and post-deployment tasks. | [Browse PowerShell](./) |
 | `Configuration` | Scripts for applying registry tweaks, local policies, and system optimizations. | [Browse Configuration](./) |
 | `Deployment` | Task-specific scripts for application packaging and Autopilot maintenance. | [Browse Deployment](./) |
+| `PowerShell` | ScriptPad to start the whole OSDCloud deployment. <br>| [Browse scriptPad](OSDCloud/scriptPad) |
+> ScriptPad: WINPE edited startnet or script in the 'OSDCloudUSB > OSDCloud\Config\Scripts\StartNet' .
 
 
 ## Key Features

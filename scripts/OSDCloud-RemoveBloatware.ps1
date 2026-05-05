@@ -277,4 +277,5 @@ Log "=== OSDCloud-RemoveBloatware Script End ==="
 } else {
     Write-Host "Actie geannuleerd." -ForegroundColor Red
     exit
+ }
 }

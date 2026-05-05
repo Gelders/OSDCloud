@@ -2,7 +2,7 @@
 # Start-DRI-Autopilot-OOBE.ps1
 # Draait in user context tijdens OOBE
 # ============================================================
-#Wrapper‑script: start Autopilot
+#Wrapper script: start Autopilot
 #C:\OSDCloud\Scripts\SetupComplete\OOBE\Start-DRI-Autopilot-OOBE.ps1
 
 #$ErrorActionPreference = 'Stop'

@@ -1,9 +1,9 @@
-﻿# ============================================================
+# ============================================================
 # Set-Language-nlBE.ps1
 # Zet taal, regio en toetsenbord naar nl-BE + Belgisch (punt)
 # ============================================================
 #Taal/keyboard script: zet nl‑BE + Belgisch (punt)
-#C:\OSDCloud\Scripts\SetupComplete\OOBE\Set-Language-nlBE.ps1
+#C:\OSDCloud\Scripts\SetupComplete\OSDCloud-main\scripts\Set-Language-nlBE.ps1
 
 #######
 $Title = "Set-KeyboardLanguage"

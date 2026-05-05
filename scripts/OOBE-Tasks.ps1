@@ -36,6 +36,9 @@ Start-Process PowerShell -ArgumentList "-NoL -C $OSDCloudMainFolderPath\OSDCloud
 Write-Host " [+] Removing Bloatware - Github" -ForegroundColor Cyan
 Start-Process PowerShell -ArgumentList "-NoL -C $OSDCloudMainFolderPath\OSDCloud-RemoveBloatware.ps1" -Wait
 
+Write-Host " [+] Starting AutopilotOOBE - Github" -ForegroundColor Cyan
+Start-Process PowerShell -ArgumentList "-NoL -C $OSDCloudMainFolderPath\Start-DRI-Autopilot-OOBE.ps1" -Wait
+
 Write-Host " [+] Executing Cleanup Script - Github" -ForegroundColor Cyan
 Start-Process PowerShell -ArgumentList "-NoL -C $OSDCloudMainFolderPath\CleanUp.ps1" -Wait
 
@@ -43,9 +46,6 @@ Start-Process PowerShell -ArgumentList "-NoL -C $OSDCloudMainFolderPath\CleanUp.
 Write-Host " [+] Cleanup ScheduledTask" -ForegroundColor Cyan
 Unregister-ScheduledTask -TaskName "Scheduled Task for SendKeys" -Confirm:`$false
 Unregister-ScheduledTask -TaskName "Scheduled Task for OSDCloud post installation" -Confirm:`$false
-
-Write-Host " [+] Starting AutopilotOOBE - Github" -ForegroundColor Cyan
-Start-Process PowerShell -ArgumentList "-NoL -C $OSDCloudMainFolderPath\Start-DRI-Autopilot-OOBE.ps1" -Wait
 
 Write-Host -ForegroundColor Green "[|] Restarting Computer"
 

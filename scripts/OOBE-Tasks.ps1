@@ -1,6 +1,8 @@
-﻿$scriptFolderPath = "C:\OSDCloud\Scripts\SetupComplete\oobe"
+$scriptFolderPath = "C:\OSDCloud\Scripts\SetupComplete\"
 $ScriptPathOOBE = Join-Path $scriptFolderPath "OOBE.ps1"
 $ScriptPathSendKeys = Join-Path $scriptFolderPath "SendKeys.ps1"
+
+$OSDCloudMainFolderPath = "C:\OSDCloud\Scripts\SetupComplete\OSDCloud-main\scripts\"
 
 If (!(Test-Path $scriptFolderPath)) {
     New-Item -Path $scriptFolderPath -ItemType Directory -Force | Out-Null
@@ -20,32 +22,30 @@ Write-Host -ForegroundColor DarkGray "[+] Installing OSD PS Module"
 Start-Process PowerShell -ArgumentList "-NoL -C Install-Module OSD -Force -Verbose" -Wait
 
 Write-Host " [+] Setting language to nl-BE - Github" -ForegroundColor Cyan
-Start-Process PowerShell -ArgumentList "-NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/Gelders/OSDCloud/refs/heads/main/scripts/Set-KeyboardLanguage.ps1" -Wait
+Start-Process PowerShell -ArgumentList "-NoL -C $OSDCloudMainFolderPath\Set-KeyboardLanguage.ps1" -Wait
 
 Write-Host " [+] Installing embedded product key - Github" -ForegroundColor Cyan
-Start-Process PowerShell -ArgumentList "-NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/Gelders/OSDCloud/refs/heads/main/scripts/Install-EmbeddedProductKey.ps1" -Wait
+Start-Process PowerShell -ArgumentList "-NoL -C $OSDCloudMainFolderPath\Install-EmbeddedProductKey.ps1" -Wait
 
 Write-Host " [+] Checking Autopilot prerequisites - Github" -ForegroundColor Cyan
-Start-Process PowerShell -ArgumentList "-NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/Gelders/OSDCloud/refs/heads/main/scripts/AP-Prereq.ps1" -Wait
+Start-Process PowerShell -ArgumentList "-NoL -C $OSDCloudMainFolderPath\AP-Prereq.ps1" -Wait
 
-### TOEVOEGING VAN ADD OSDCloud-AddSoftware en OSDCloud-RemoveBloatware
 Write-Host " [+] Adding OfficeOne apps - Github" -ForegroundColor Cyan
-Start-Process PowerShell -ArgumentList "-NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/Gelders/OSDCloud/refs/heads/main/scripts/OSDCloud-AddSoftware.ps1" -Wait
+Start-Process PowerShell -ArgumentList "-NoL -C $OSDCloudMainFolderPath\OSDCloud-AddSoftware.ps1" -Wait
 
 Write-Host " [+] Removing Bloatware - Github" -ForegroundColor Cyan
-Start-Process PowerShell -ArgumentList "-NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/Gelders/OSDCloud/refs/heads/main/scripts/OSDCloud-RemoveBloatware.ps1" -Wait
-### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-
-Write-Host " [+] Starting AutopilotOOBE - Github" -ForegroundColor Cyan
-Start-Process PowerShell -ArgumentList "-NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/Gelders/OSDCloud/refs/heads/main/scripts/Start-DRI-Autopilot-OOBE.ps1" -Wait
+Start-Process PowerShell -ArgumentList "-NoL -C $OSDCloudMainFolderPath\OSDCloud-RemoveBloatware.ps1" -Wait
 
 Write-Host " [+] Executing Cleanup Script - Github" -ForegroundColor Cyan
-Start-Process PowerShell -ArgumentList "-NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/Gelders/OSDCloud/refs/heads/main/scripts/CleanUp.ps1" -Wait
+Start-Process PowerShell -ArgumentList "-NoL -C $OSDCloudMainFolderPath\CleanUp.ps1" -Wait
 
 #Cleanup scheduled Tasks
 Write-Host " [+] Cleanup ScheduledTask" -ForegroundColor Cyan
 Unregister-ScheduledTask -TaskName "Scheduled Task for SendKeys" -Confirm:`$false
 Unregister-ScheduledTask -TaskName "Scheduled Task for OSDCloud post installation" -Confirm:`$false
+
+Write-Host " [+] Starting AutopilotOOBE - Github" -ForegroundColor Cyan
+Start-Process PowerShell -ArgumentList "-NoL -C $OSDCloudMainFolderPath\Start-DRI-Autopilot-OOBE.ps1" -Wait
 
 Write-Host -ForegroundColor Green "[|] Restarting Computer"
 
@@ -80,26 +80,35 @@ Stop-Transcript -Verbose
 
 Out-File -FilePath $ScriptPathSendKeys -InputObject $SendKeysScript -Encoding ascii
 
-#Download ServiceUI.exe
-#Write-Host -ForegroundColor Gray "ServiceUI.exe is in de folder C:\OSDCloud\Scripts\SetupComplete\ServiceUI.exe"
-#Test-Path "C:\OSDCloud\Scripts\SetupComplete\ServiceUI.exe"
-#Invoke-WebRequest https://github.com/AkosBakos/Tools/raw/main/ServiceUI64.exe -OutFile "C:\OSDCloud\ServiceUI.exe"
-
+# -------------------
+# ServiceUI.exe
+# -------------------
+#ServiceUI.exe
 #Maak de map aan als deze nog niet bestaat
-$destPath = "C:\OSDCloud\Scripts\SetupComplete\"
+$destPath = "C:\OSDCloud\Scripts\SetupComplete\OSDCloud-main\tools\"
 if (!(Test-Path $destPath)) { New-Item -Path $destPath -ItemType Directory }
 
-#Download ServiceUI.exe met de RAW URL
-Write-Host -ForegroundColor Cyan "[|] Download ServiceUI.exe van GitHub Repo..."
-$rawUrl = "https://github.com/Gelders/OSDCloud/raw/refs/heads/main/tools/ServiceUI.exe"
+Write-Host -ForegroundColor Gray "[?] ServiceUI.exe zoeken..."
 
-try {
-    Invoke-WebRequest -Uri $rawUrl -OutFile "$destPath\ServiceUI.exe" -ErrorAction Stop
-    Write-Host -ForegroundColor Green " [+] Download voltooid!"
-    if ((Test-Path $destPath)) {Write-Host -ForegroundColor Green "  [+] ServiceUI.exe is in de folder C:\OSDCloud\Scripts\SetupComplete\"}
+if(Test-Path "C:\OSDCloud\Scripts\SetupComplete\OSDCloud-main\tools\ServiceUI.exe"){
+    Write-Host -ForegroundColor Green " [+] ServiceUI.exe is in de folder C:\OSDCloud\Scripts\SetupComplete\OSDCloud-main\tools\ServiceUI.exe"
+}
+else{
+    Write-Host -ForegroundColor Red " [-] ServiceUI.exe niet gevonden."
+    Write-Host -ForegroundColor Red "  [|] Er is iets misgelopen bij het kopiëren van de GitHub Repo."
 
-} catch {
-    Write-Host -ForegroundColor Red "[-] Fout bij downloaden: $($_.Exception.Message)"
+    #Download ServiceUI.exe met de RAW URL
+    Write-Host -ForegroundColor Cyan "[|] Download ServiceUI.exe van GitHub Repo..."
+    $rawUrl = "https://github.com/Gelders/OSDCloud/raw/refs/heads/main/tools/ServiceUI.exe"
+
+    try {
+        Invoke-WebRequest -Uri $rawUrl -OutFile "$destPath\ServiceUI.exe" -ErrorAction Stop
+        Write-Host -ForegroundColor Green " [+] Download voltooid!"
+        if ((Test-Path $destPath)) {Write-Host -ForegroundColor Green "  [+] ServiceUI.exe is in de folder C:\OSDCloud\Scripts\SetupComplete\OSDCloud-main\tools\"}
+
+    } catch {
+        Write-Host -ForegroundColor Red "[-] Fout bij downloaden: $($_.Exception.Message)"
+    }
 }
 
 #============================================================================
@@ -121,7 +130,7 @@ $trigger.Delay = 'PT15S'
 $trigger.Enabled = $true
 
 $action = $Task.Actions.Create(0)
-$action.Path = 'C:\OSDCloud\Scripts\SetupComplete\ServiceUI.exe'
+$action.Path = 'C:\OSDCloud\Scripts\SetupComplete\OSDCloud-main\tools\ServiceUI.exe'
 $action.Arguments = '-process:RuntimeBroker.exe C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe ' + $ScriptPathSendKeys + ' -NoExit'
 
 $taskFolder = $ShedService.GetFolder("\")
@@ -151,7 +160,7 @@ $trigger.Delay = 'PT20S'
 $trigger.Enabled = $true
 
 $action = $Task.Actions.Create(0)
-$action.Path = 'C:\OSDCloud\Scripts\SetupComplete\ServiceUI.exe'
+$action.Path = 'C:\OSDCloud\Scripts\SetupComplete\OSDCloud-main\tools\ServiceUI.exe'
 $action.Arguments = '-process:RuntimeBroker.exe C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe ' + $ScriptPathOOBE + ' -NoExit'
 
 $taskFolder = $ShedService.GetFolder("\")

@@ -87,11 +87,10 @@ if (Test-Path $TxtList) {
         }
     }
 } else {
-    Log "[WARN] TXT list niet gevonden — skipping Windows bloat removal"
+    Log "[WARN] TXT list niet gevonden - skipping Windows bloat removal"
     Log "[WARN] Txt-bestand: $TxtList"
     Log "[WARN] Script root: $ScriptRoot"
     Log "[WARN] PWD: $PWD"
-
 }
 
 # ============================================================

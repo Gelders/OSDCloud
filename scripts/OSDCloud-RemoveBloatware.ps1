@@ -1,4 +1,4 @@
-﻿$ErrorActionPreference = 'Stop'
+$ErrorActionPreference = 'Stop'
  
 Write-Host "OSDCloud_RemoveBloatware script gevonden, starten." -ForegroundColor Green
 Write-Host "OSDCloud-RemoveBloatware.ps1 gestart..." -ForegroundColor Cyan
@@ -42,22 +42,13 @@ Log "======================================"
 Log "REMOVE WINDOWS BLOATWARE FROM TXT LIST"
 Log "======================================"
 
-$BasePath = "C:\OSDCloud\Scripts\SetupComplete\OOBE"
+$BasePath = "C:\OSDCloud\Scripts\SetupComplete\OSDCloud-main\scripts"
 
 #Maak de map aan als deze nog niet bestaat
-if (!(Test-Path $BasePath)) { New-Item -Path $BasePath -ItemType Directory }
+if (!(Test-Path $BasePath)) { 
+New-Item -Path $BasePath -ItemType Directory
+Log "$BasePath was niet aanwezig. Dit wil zeggen dat de GitHub Repo copy niet gelukt is."
 
-#Download OSDCloud-RemoveBloatware-AppList.txt met de RAW URL
-Write-Host -ForegroundColor Cyan "[|] Download OSDCloud-RemoveBloatware-AppList.txt van GitHub Repo..."
-$rawUrl = "https://raw.githubusercontent.com/Gelders/OSDCloud/refs/heads/main/scripts/OSDCloud-RemoveBloatware-AppList.txt"
-
-try {
-    Invoke-WebRequest -Uri $rawUrl -OutFile "$BasePath\OSDCloud-RemoveBloatware-AppList.txt" -ErrorAction Stop
-    Write-Host -ForegroundColor Green " [+] Download voltooid!"
-    if ((Test-Path $BasePath)) {Write-Host -ForegroundColor Green "  [+] OSDCloud-RemoveBloatware-AppList.txt is in de folder C:\OSDCloud\Scripts\SetupComplete\OOBE"}
-
-} catch {
-    Write-Host -ForegroundColor Red "[-] Fout bij downloaden: $($_.Exception.Message)"
 }
 
 $TxtList = Join-Path $BasePath "OSDCloud-RemoveBloatware-AppList.txt"

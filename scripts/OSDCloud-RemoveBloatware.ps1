@@ -46,9 +46,8 @@ $BasePath = "C:\OSDCloud\Scripts\SetupComplete\OSDCloud-main\scripts"
 
 #Maak de map aan als deze nog niet bestaat
 if (!(Test-Path $BasePath)) { 
-New-Item -Path $BasePath -ItemType Directory
-Log "$BasePath was niet aanwezig. Dit wil zeggen dat de GitHub Repo copy niet gelukt is."
-
+ New-Item -Path $BasePath -ItemType Directory
+ Log "$BasePath was niet aanwezig. Dit wil zeggen dat de GitHub Repo copy niet gelukt is."
 }
 
 $TxtList = Join-Path $BasePath "OSDCloud-RemoveBloatware-AppList.txt"
@@ -87,10 +86,11 @@ if (Test-Path $TxtList) {
         }
     }
 } else {
-    Log "[WARN] TXT list niet gevonden - skipping Windows bloat removal"
+    Log "[WARN] TXT list niet gevonden. Skipping Windows bloat removal"
     Log "[WARN] Txt-bestand: $TxtList"
     Log "[WARN] Script root: $ScriptRoot"
     Log "[WARN] PWD: $PWD"
+
 }
 
 # ============================================================
@@ -277,5 +277,4 @@ Log "=== OSDCloud-RemoveBloatware Script End ==="
 } else {
     Write-Host "Actie geannuleerd." -ForegroundColor Red
     exit
- }
 }

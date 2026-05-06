@@ -274,7 +274,7 @@ foreach ($msi in $WolfMSIs) {
 Log "=== OSDCloud-RemoveBloatware Script End ==="
 
 #EINDE BESLISSING
-} else {
+}} else {
     Write-Host "Actie geannuleerd." -ForegroundColor Red
     exit
 }

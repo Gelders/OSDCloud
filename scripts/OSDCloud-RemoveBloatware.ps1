@@ -82,7 +82,7 @@ if (Test-Path $TxtList) {
                 Log "[ERR] Verwijderen mislukt: $app - $($_.Exception.Message)"
             }
         } else {
-            Log "[SKIP] $app is niet geïnstalleerd"
+            Log "[SKIP] $app is niet geinstalleerd"
         }
     }
 } else {

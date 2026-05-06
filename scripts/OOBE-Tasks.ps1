@@ -22,25 +22,25 @@ Write-Host -ForegroundColor DarkGray "[+] Installing OSD PS Module"
 Start-Process PowerShell -ArgumentList "-NoL -C Install-Module OSD -Force -Verbose" -Wait
 
 Write-Host " [+] Setting language to nl-BE - Github" -ForegroundColor Cyan
-Start-Process PowerShell -ArgumentList "-NoL -C $OSDCloudMainFolderPath\Set-KeyboardLanguage.ps1" -Wait
+Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDCloudMainFolderPath\Set-KeyboardLanguage.ps1" -Wait
 
 Write-Host " [+] Installing embedded product key - Github" -ForegroundColor Cyan
-Start-Process PowerShell -ArgumentList "-NoL -C $OSDCloudMainFolderPath\Install-EmbeddedProductKey.ps1" -Wait
+Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDCloudMainFolderPath\Install-EmbeddedProductKey.ps1" -Wait
 
 Write-Host " [+] Checking Autopilot prerequisites - Github" -ForegroundColor Cyan
-Start-Process PowerShell -ArgumentList "-NoL -C $OSDCloudMainFolderPath\AP-Prereq.ps1" -Wait
+Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDCloudMainFolderPath\AP-Prereq.ps1" -Wait
 
 Write-Host " [+] Adding OfficeOne apps - Github" -ForegroundColor Cyan
-Start-Process PowerShell -ArgumentList "-NoL -C $OSDCloudMainFolderPath\OSDCloud-AddSoftware.ps1" -Wait
+Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDCloudMainFolderPath\OSDCloud-AddSoftware.ps1" -Wait
 
 Write-Host " [+] Removing Bloatware - Github" -ForegroundColor Cyan
-Start-Process PowerShell -ArgumentList "-NoL -C $OSDCloudMainFolderPath\OSDCloud-RemoveBloatware.ps1" -Wait
+Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDCloudMainFolderPath\OSDCloud-RemoveBloatware.ps1" -Wait
 
 Write-Host " [+] Starting AutopilotOOBE - Github" -ForegroundColor Cyan
-Start-Process PowerShell -ArgumentList "-NoL -C $OSDCloudMainFolderPath\Start-DRI-Autopilot-OOBE.ps1" -Wait
+Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDCloudMainFolderPath\Start-DRI-Autopilot-OOBE.ps1" -Wait
 
 Write-Host " [+] Executing Cleanup Script - Github" -ForegroundColor Cyan
-Start-Process PowerShell -ArgumentList "-NoL -C $OSDCloudMainFolderPath\CleanUp.ps1" -Wait
+Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDCloudMainFolderPath\CleanUp.ps1" -Wait
 
 #Cleanup scheduled Tasks
 Write-Host " [+] Cleanup ScheduledTask" -ForegroundColor Cyan
@@ -95,7 +95,7 @@ if(Test-Path "C:\OSDCloud\Scripts\SetupComplete\OSDCloud-main\tools\ServiceUI.ex
 }
 else{
     Write-Host -ForegroundColor Red " [-] ServiceUI.exe niet gevonden."
-    Write-Host -ForegroundColor Red "  [|] Er is iets misgelopen bij het kopiëren van de GitHub Repo."
+    Write-Host -ForegroundColor Red "  [|] Er is iets misgelopen bij het kopieren van de GitHub Repo."
 
     #Download ServiceUI.exe met de RAW URL
     Write-Host -ForegroundColor Cyan "[|] Download ServiceUI.exe van GitHub Repo..."

@@ -2,7 +2,7 @@ $scriptFolderPath = "C:\OSDCloud\Scripts\SetupComplete\"
 $ScriptPathOOBE = Join-Path $scriptFolderPath "OOBE.ps1"
 $ScriptPathSendKeys = Join-Path $scriptFolderPath "SendKeys.ps1"
 
-$OSDCloudMainFolderPath = "C:\OSDCloud\Scripts\SetupComplete\OSDCloud-main\scripts\"
+$OSDCloudMainFolderPath = "C:\OSDCloud\Scripts\SetupComplete\OSDCloud-main\scripts"
 
 If (!(Test-Path $scriptFolderPath)) {
     New-Item -Path $scriptFolderPath -ItemType Directory -Force | Out-Null

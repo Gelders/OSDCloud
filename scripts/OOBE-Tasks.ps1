@@ -16,19 +16,19 @@ $OOBEScript = @"
 Start-Transcript -Path (Join-Path "`$env:ProgramData\Microsoft\IntuneManagementExtension\Logs\OSD\" `$Global:Transcript) -ErrorAction Ignore | Out-Null
 
 Write-Host -ForegroundColor DarkGray "[+] Installing AutopilotOOBE PS Module"
-Start-Process PowerShell -ArgumentList "-NoL -C Install-Module AutopilotOOBE -Force -Verbose" -Wait
+#Start-Process PowerShell -ArgumentList "-NoL -C Install-Module AutopilotOOBE -Force -Verbose" -Wait
 
 Write-Host -ForegroundColor DarkGray "[+] Installing OSD PS Module"
-Start-Process PowerShell -ArgumentList "-NoL -C Install-Module OSD -Force -Verbose" -Wait
+#Start-Process PowerShell -ArgumentList "-NoL -C Install-Module OSD -Force -Verbose" -Wait
 
 Write-Host " [+] Setting language to nl-BE - Github" -ForegroundColor Cyan
-Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDCloudMainFolderPath\Set-KeyboardLanguage.ps1" -Wait
+#Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDCloudMainFolderPath\Set-KeyboardLanguage.ps1" -Wait
 
 Write-Host " [+] Installing embedded product key - Github" -ForegroundColor Cyan
-Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDCloudMainFolderPath\Install-EmbeddedProductKey.ps1" -Wait
+#Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDCloudMainFolderPath\Install-EmbeddedProductKey.ps1" -Wait
 
 Write-Host " [+] Checking Autopilot prerequisites - Github" -ForegroundColor Cyan
-Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDCloudMainFolderPath\AP-Prereq.ps1" -Wait
+#Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDCloudMainFolderPath\AP-Prereq.ps1" -Wait
 
 Write-Host " [+] Adding OfficeOne apps - Github" -ForegroundColor Cyan
 Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDCloudMainFolderPath\OSDCloud-AddSoftware.ps1" -Wait
@@ -36,11 +36,14 @@ Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDC
 Write-Host " [+] Removing Bloatware - Github" -ForegroundColor Cyan
 Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDCloudMainFolderPath\OSDCloud-RemoveBloatware.ps1" -Wait
 
-Write-Host " [+] Starting AutopilotOOBE - Github" -ForegroundColor Cyan
+#Write-Host " [+] Starting AutopilotOOBE - Github" -ForegroundColor Cyan
+Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File C:\OSDCloud\Scripts\SetupComplete\taskoobee.ps1" -Wait
+Scheduled Task for OSDCloud post installation2
+#Write-Host " [+] Starting AutopilotOOBE - Github" -ForegroundColor Cyan
 Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDCloudMainFolderPath\Start-DRI-Autopilot-OOBE.ps1" -Wait
 
 Write-Host " [+] Executing Cleanup Script - Github" -ForegroundColor Cyan
-Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDCloudMainFolderPath\CleanUp.ps1" -Wait
+#Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDCloudMainFolderPath\CleanUp.ps1" -Wait
 
 #Cleanup scheduled Tasks
 Write-Host " [+] Cleanup ScheduledTask" -ForegroundColor Cyan
@@ -50,7 +53,7 @@ Unregister-ScheduledTask -TaskName "Scheduled Task for OSDCloud post installatio
 Write-Host -ForegroundColor Green "[|] Restarting Computer"
 
 Stop-Transcript -Verbose
-Start-Process PowerShell -ArgumentList "-NoL -C Restart-Computer -Force" -Wait
+#Start-Process PowerShell -ArgumentList "-NoL -C Restart-Computer -Force" -Wait
 "@
 
 Out-File -FilePath $ScriptPathOOBE -InputObject $OOBEScript -Encoding ascii

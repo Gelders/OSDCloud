@@ -1,5 +1,17 @@
-﻿$TaskName = "Scheduled Task for OSDCloud AutoPilot"
-$XmlContent = @'
+Write-Host "[|] Start-DRI-Autopilot-OOBE.ps1 gestart..." -ForegroundColor Cyan
+
+$titel = "Autopilot script gevonden, starten: $AutoPilotScript"
+$vraag = "Autopilot script gevonden, starten: $AutoPilotScript `nWil je doorgaan met de actie?"
+$keuzes = @(
+    New-Object System.Management.Automation.Host.ChoiceDescription "&Ja", "Voert het script uit."
+    New-Object System.Management.Automation.Host.ChoiceDescription "&Nee", "Stopt het script."
+)
+
+$beslissing = $Host.UI.PromptForChoice($titel, $vraag, $keuzes, 1)
+
+if ($beslissing -eq 0) {
+    $TaskName = "Scheduled Task for OSDCloud AutoPilot"
+    $XmlContent = @'
 <?xml version="1.0" encoding="UTF-16"?>
 <Task version="1.4" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
   <RegistrationInfo>
@@ -15,7 +27,7 @@ $XmlContent = @'
   </Triggers>
   <Principals>
     <Principal id="Author">
-      <LogonType>InteractiveToken</LogonType>
+      <GroupId>S-1-5-32-544</GroupId>
       <RunLevel>HighestAvailable</RunLevel>
     </Principal>
   </Principals>
@@ -43,11 +55,13 @@ $XmlContent = @'
   <Actions Context="Author">
     <Exec>
       <Command>C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe</Command>
-      <Arguments>C:\OSDCloud\Scripts\SetupComplete\DRIAutoPilotV5\Resources\DRIAutoPilotV5.10.ps1</Arguments>
+      <Arguments>-ExecutionPolicy Bypass -File "C:\OSDCloud\Scripts\SetupComplete\DRIAutoPilotV5\Resources\DRIAutoPilotV5.10.ps1"</Arguments>
     </Exec>
   </Actions>
 </Task>
 '@
 
-#Registreer de taak direct vanuit de XML-string
-Register-ScheduledTask -Xml $XmlContent -TaskName $TaskName -Force
+    # Registreer de taak direct vanuit de XML-string
+    Register-ScheduledTask -Xml $XmlContent -TaskName $TaskName -Force
+    Write-Host "[+] Scheduled Task succesvol aangemaakt." -ForegroundColor Green
+}

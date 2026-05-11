@@ -16,19 +16,19 @@ $OOBEScript = @"
 Start-Transcript -Path (Join-Path "`$env:ProgramData\Microsoft\IntuneManagementExtension\Logs\OSD\" `$Global:Transcript) -ErrorAction Ignore | Out-Null
 
 Write-Host -ForegroundColor DarkGray "[+] Installing AutopilotOOBE PS Module"
-#Start-Process PowerShell -ArgumentList "-NoL -C Install-Module AutopilotOOBE -Force -Verbose" -Wait
+Start-Process PowerShell -ArgumentList "-NoL -C Install-Module AutopilotOOBE -Force -Verbose" -Wait
 
 Write-Host -ForegroundColor DarkGray "[+] Installing OSD PS Module"
-#Start-Process PowerShell -ArgumentList "-NoL -C Install-Module OSD -Force -Verbose" -Wait
+Start-Process PowerShell -ArgumentList "-NoL -C Install-Module OSD -Force -Verbose" -Wait
 
 Write-Host " [+] Setting language to nl-BE - Github" -ForegroundColor Cyan
-#Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDCloudMainFolderPath\Set-KeyboardLanguage.ps1" -Wait
+Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDCloudMainFolderPath\Set-KeyboardLanguage.ps1" -Wait
 
 Write-Host " [+] Installing embedded product key - Github" -ForegroundColor Cyan
-#Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDCloudMainFolderPath\Install-EmbeddedProductKey.ps1" -Wait
+Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDCloudMainFolderPath\Install-EmbeddedProductKey.ps1" -Wait
 
 Write-Host " [+] Checking Autopilot prerequisites - Github" -ForegroundColor Cyan
-#Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDCloudMainFolderPath\AP-Prereq.ps1" -Wait
+Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDCloudMainFolderPath\AP-Prereq.ps1" -Wait
 
 Write-Host " [+] Adding OfficeOne apps - Github" -ForegroundColor Cyan
 Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDCloudMainFolderPath\OSDCloud-AddSoftware.ps1" -Wait
@@ -36,26 +36,21 @@ Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDC
 Write-Host " [+] Removing Bloatware - Github" -ForegroundColor Cyan
 Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDCloudMainFolderPath\OSDCloud-RemoveBloatware.ps1" -Wait
 
-#Write-Host " [+] Starting AutopilotOOBE - Github" -ForegroundColor Cyan
-Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDCloudMainFolderPath\OOBE-Tasks-AutoPilot.ps1" -Wait
-Start-ScheduledTask -TaskName "Scheduled Task for OSDCloud AutoPilot"
-
-#Write-Host " [+] Starting AutopilotOOBE - Github" -ForegroundColor Cyan
+Write-Host " [+] Starting AutopilotOOBE - Github" -ForegroundColor Cyan
 Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDCloudMainFolderPath\Start-DRI-Autopilot-OOBE.ps1" -Wait
 
 Write-Host " [+] Executing Cleanup Script - Github" -ForegroundColor Cyan
-#Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDCloudMainFolderPath\CleanUp.ps1" -Wait
+Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDCloudMainFolderPath\CleanUp.ps1" -Wait
 
 #Cleanup scheduled Tasks
 Write-Host " [+] Cleanup ScheduledTask" -ForegroundColor Cyan
 Unregister-ScheduledTask -TaskName "Scheduled Task for SendKeys" -Confirm:`$false
 Unregister-ScheduledTask -TaskName "Scheduled Task for OSDCloud post installation" -Confirm:`$false
-Unregister-ScheduledTask -TaskName "Scheduled Task for OSDCloud AutoPilot"
 
 Write-Host -ForegroundColor Green "[|] Restarting Computer"
 
 Stop-Transcript -Verbose
-#Start-Process PowerShell -ArgumentList "-NoL -C Restart-Computer -Force" -Wait
+Start-Process PowerShell -ArgumentList "-NoL -C Restart-Computer -Force" -Wait
 "@
 
 Out-File -FilePath $ScriptPathOOBE -InputObject $OOBEScript -Encoding ascii
@@ -158,6 +153,7 @@ $Task = $ShedService.NewTask(0)
 $Task.RegistrationInfo.Description = $taskName
 $Task.Settings.Enabled = $true
 $Task.Settings.AllowDemandStart = $true
+$Task.Principal.RunLevel = 1 # 0 is 'Limited', 1 is 'Highest'
 
 #https://msdn.microsoft.com/en-us/library/windows/desktop/aa383987(v=vs.85).aspx
 $trigger = $task.triggers.Create(9) # 0 EventTrigger, 1 TimeTrigger, 2 DailyTrigger, 3 WeeklyTrigger, 4 MonthlyTrigger, 5 MonthlyDOWTrigger, 6 IdleTrigger, 7 RegistrationTrigger, 8 BootTrigger, 9 LogonTrigger
@@ -166,8 +162,10 @@ $trigger.Enabled = $true
 
 $action = $Task.Actions.Create(0)
 $action.Path = 'C:\OSDCloud\Scripts\SetupComplete\OSDCloud-main\tools\ServiceUI.exe'
-$action.Arguments = '-process:RuntimeBroker.exe C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe ' + $ScriptPathOOBE + ' -NoExit'
+#$action.Arguments = '-process:RuntimeBroker.exe C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe ' + $ScriptPathOOBE + ' -NoExit'
+$action.Arguments = '-process:explorer.exe C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -File ' + $ScriptPathOOBE + ' -NoExit'
 
 $taskFolder = $ShedService.GetFolder("\")
 #https://msdn.microsoft.com/en-us/library/windows/desktop/aa382577(v=vs.85).aspx
-$taskFolder.RegisterTaskDefinition($TaskName, $Task , 6, "SYSTEM", $NULL, 5) 
+#$taskFolder.RegisterTaskDefinition($TaskName, $Task , 6, "SYSTEM", $NULL, 5) 
+$taskFolder.RegisterTaskDefinition($TaskName, $Task, 6, "Administrators", $NULL, 4)

@@ -163,9 +163,9 @@ $trigger.Enabled = $true
 $action = $Task.Actions.Create(0)
 $action.Path = 'C:\OSDCloud\Scripts\SetupComplete\OSDCloud-main\tools\ServiceUI.exe'
 #$action.Arguments = '-process:RuntimeBroker.exe C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe ' + $ScriptPathOOBE + ' -NoExit'
-$action.Arguments = '-process:explorer.exe C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -File ' + $ScriptPathOOBE + ' -NoExit'
+#$action.Arguments = '-process:explorer.exe C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -File ' + $ScriptPathOOBE + ' -NoExit'
+$action.Arguments = '-process:CloudExperienceHost.exe C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -File ' + $ScriptPathOOBE + ' -NoExit'
 
 $taskFolder = $ShedService.GetFolder("\")
 #https://msdn.microsoft.com/en-us/library/windows/desktop/aa382577(v=vs.85).aspx
-#$taskFolder.RegisterTaskDefinition($TaskName, $Task , 6, "SYSTEM", $NULL, 5) 
-$taskFolder.RegisterTaskDefinition($TaskName, $Task, 6, "Administrators", $NULL, 4)
+$taskFolder.RegisterTaskDefinition($TaskName, $Task , 6, "SYSTEM", $NULL, 5) 

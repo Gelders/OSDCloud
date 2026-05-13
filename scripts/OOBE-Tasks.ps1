@@ -57,6 +57,19 @@ Write-Host " [+] Cleanup ScheduledTask" -ForegroundColor Cyan
 Unregister-ScheduledTask -TaskName "Scheduled Task for SendKeys" -Confirm:`$false
 Unregister-ScheduledTask -TaskName "Scheduled Task for OSDCloud post installation" -Confirm:`$false
 
+#Skip OOBE flags
+$OobePath = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE"
+if (-not (Test-Path $OobePath)) { New-Item -Path $OobePath -Force }
+Set-ItemProperty -Path $OobePath -Name "SkipMachineOOBE" -Value 1 -Type DWord -Force
+Set-ItemProperty -Path $OobePath -Name "SkipUserOOBE" -Value 1 -Type DWord -Force
+
+#Stop OOBE loop
+$SetupPath = "HKLM:\SYSTEM\Setup"
+Set-ItemProperty -Path $SetupPath -Name "OOBEInProgress" -Value 0 -Type DWord -Force
+Set-ItemProperty -Path $SetupPath -Name "SetupPhase" -Value 0 -Type DWord -Force
+Set-ItemProperty -Path $SetupPath -Name "SetupType" -Value 0 -Type DWord -Force
+Set-ItemProperty -Path $SetupPath -Name "CmdLine" -Value "" -Type String -Force
+
 Write-Host -ForegroundColor Green "[|] Restarting Computer"
 
 Stop-Transcript -Verbose

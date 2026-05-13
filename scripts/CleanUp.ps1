@@ -22,7 +22,7 @@ If (Test-Path -Path 'C:\Temp') {
 }
 
 #Cleanup dirs
-If (Test-Path -Path 'C:\OSDCloud') { Get-ChildItem -Path "C:\OSDCloud" -Exclude ServiceUI.exe,OSDCloud-main,DRIAutoPilotV5,Start-DRI-Autopilot-OOBE.ps1 -Recurse | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
+If (Test-Path -Path 'C:\OSDCloud') { Get-ChildItem -Path "C:\OSDCloud" -Exclude Scripts,SetupComplete,ServiceUI.exe,OSDCloud-main,DRIAutoPilotV5,DRIAutoPilotV5.10.ps1,Start-DRI-Autopilot-OOBE.ps1,Resources,FedPol.png,MainWindow-V5.xaml,SelectWindow-V5.xaml,cmd.txt,'README - DRI AutoPilot V5.pdf',StartAutoPilotV5.bat -Recurse | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
     
     Write-Host "[-] DIR | 'C:\OSDCloud' verwijderd." -ForegroundColor Cyan
 

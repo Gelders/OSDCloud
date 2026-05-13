@@ -36,8 +36,18 @@ Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDC
 Write-Host " [+] Removing Bloatware - Github" -ForegroundColor Cyan
 Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDCloudMainFolderPath\OSDCloud-RemoveBloatware.ps1" -Wait
 
-Write-Host " [+] Starting AutopilotOOBE - Github" -ForegroundColor Cyan
-Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDCloudMainFolderPath\Start-DRI-Autopilot-OOBE.ps1" -Wait
+#Write-Host " [+] Starting AutopilotOOBE - Github" -ForegroundColor Cyan
+#Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDCloudMainFolderPath\Start-DRI-Autopilot-OOBE.ps1" -Wait
+
+Write-Host " [+] Making RunOnce AutopilotOOBE - Github" -ForegroundColor Cyan
+$targetPat = ""
+$targetPath = "C:\OSDCloud\Scripts\SetupComplete\DRIAutoPilotV5"
+if (Test-Path $targetPath) {
+    #RunOnce register sleutel
+    $AutopilotOOBERuneOnce = "Start-Process PowerShell -ArgumentList '-NoL -ExecutionPolicy Bypass -File $OSDCloudMainFolderPath\Start-DRI-Autopilot-OOBE.ps1' -Wait"
+    Set-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\RunOnce" -Name "AutopilotOOBERuneOnce" -Value $AutopilotOOBERuneOnce
+    Write-Host "   [+] REGISTER | RunOnce AutopilotOOBE reg-key aangemaakt." -ForegroundColor Green
+}
 
 Write-Host " [+] Executing Cleanup Script - Github" -ForegroundColor Cyan
 Start-Process PowerShell -ArgumentList "-NoL -ExecutionPolicy Bypass -File $OSDCloudMainFolderPath\CleanUp.ps1" -Wait
@@ -144,7 +154,7 @@ $taskFolder.RegisterTaskDefinition($TaskName, $Task , 6, "SYSTEM", $NULL, 5)
 #==================================================================================
 #   Create Scheduled Task for OSDCloud post installation with 20 seconds delay
 #==================================================================================
-<#$TaskName = "Scheduled Task for OSDCloud post installation"
+$TaskName = "Scheduled Task for OSDCloud post installation"
 
 $ShedService = New-Object -comobject 'Schedule.Service'
 $ShedService.Connect()
@@ -162,62 +172,8 @@ $trigger.Enabled = $true
 
 $action = $Task.Actions.Create(0)
 $action.Path = 'C:\OSDCloud\Scripts\SetupComplete\OSDCloud-main\tools\ServiceUI.exe'
-#$action.Arguments = '-process:RuntimeBroker.exe C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe ' + $ScriptPathOOBE + ' -NoExit'
-#$action.Arguments = '-process:explorer.exe C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -File ' + $ScriptPathOOBE + ' -NoExit'
-$action.Arguments = '-process:CloudExperienceHost.exe C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -File ' + $ScriptPathOOBE + ' -NoExit'
+$action.Arguments = '-process:RuntimeBroker.exe C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe ' + $ScriptPathOOBE + ' -NoExit'
 
 $taskFolder = $ShedService.GetFolder("\")
 #https://msdn.microsoft.com/en-us/library/windows/desktop/aa382577(v=vs.85).aspx
-$taskFolder.RegisterTaskDefinition($TaskName, $Task , 6, "SYSTEM", $NULL, 5) 
-#>
-
-#==================================================================================
-#   Create Scheduled Task for OSDCloud post installation with 20 seconds delay
-#==================================================================================
-$TaskName = "Scheduled Task for OSDCloud post installation"
-
-$Service = New-Object -ComObject "Schedule.Service"
-$Service.Connect()
-
-$Task = $Service.NewTask(0)
-
-#-------------------------
-# Registration Info
-#-------------------------
-$Task.RegistrationInfo.Description = $taskName
-$Task.RegistrationInfo.Author      = "$env:COMPUTERNAME\defaultuser0"
-$Task.RegistrationInfo.URI         = "\Scheduled Task for OSDCloud post installation"
-
-#-------------------------
-$Task.Settings.MultipleInstances          = 0   # IgnoreNew
-$Task.Settings.DisallowStartIfOnBatteries = $true
-$Task.Settings.StopIfGoingOnBatteries     = $true
-$Task.Settings.AllowHardTerminate         = $true
-$Task.Settings.AllowDemandStart           = $true
-$Task.Settings.StartWhenAvailable         = $false
-$Task.Settings.RunOnlyIfNetworkAvailable  = $false
-$Task.Settings.Enabled                    = $true
-$Task.Settings.Hidden                     = $false
-$Task.Settings.RunOnlyIfIdle              = $false
-$Task.Settings.WakeToRun                  = $false
-$Task.Settings.ExecutionTimeLimit         = "PT72H"
-$Task.Settings.Priority                   = 7
-
-$Task.Settings.IdleSettings.StopOnIdleEnd = $true
-$Task.Settings.IdleSettings.RestartOnIdle = $false
-
-$Principal = $Task.Principal
-$Principal.Id = "Author"
-$Principal.GroupId = "S-1-5-32-544"   # Administrators group
-$Principal.RunLevel = 1               # HighestAvailable
-
-$Trigger = $Task.Triggers.Create(9)   # LogonTrigger
-$Trigger.Enabled = $true
-$Trigger.Delay   = "PT20S"
-
-$Action = $Task.Actions.Create(0)
-$Action.Path = "C:\OSDCloud\Scripts\SetupComplete\OSDCloud-main\tools\ServiceUI.exe"
-$Action.Arguments = "C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -File C:\OSDCloud\Scripts\SetupComplete\OOBE.ps1 -NoExit"
-
-$root = $service.GetFolder("\")
-$root.RegisterTaskDefinition($TaskName, $task, 6, $null, $null, 5)
+$taskFolder.RegisterTaskDefinition($TaskName, $Task , 6, "SYSTEM", $NULL, 5)

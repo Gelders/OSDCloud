@@ -11,6 +11,15 @@ Start-Transcript -Path "$env:ProgramData\Microsoft\IntuneManagementExtension\Log
 
 Write-Host "Running as: $env:USERNAME"
 Write-Host "Session: $((Get-Process -Id $PID).SessionId)"
+Write-Host ""
+
+Write-Host " [|] Reset Autologin"
+#resetAutologin
+$WinlogonPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
+Set-ItemProperty -Path $WinlogonPath -Name "AutoAdminLogon" -Value "0" -Type String -Force
+Set-ItemProperty -Path $WinlogonPath -Name "DefaultUserName" -Value "" -Type String -Force
+Set-ItemProperty -Path $WinlogonPath -Name "DefaultPassword" -Value "" -Type String -Force
+Write-Host " [+] Autologin has been reset."
 
 #Path to script
 #Seek file DRIAutoPilot*.ps1 inside a folder that has DRIAutoPilot in it. 

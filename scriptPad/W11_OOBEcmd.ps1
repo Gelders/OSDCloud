@@ -67,6 +67,6 @@ Start-OSDCloud -OSName $OSName -OSEdition $OSEdition -OSActivation $OSActivation
 #=======================================================================
 #   Restart-Computer
 #=======================================================================
-Write-Host  -ForegroundColor Green "Restarting in 20 seconds!"
+Write-Host  -ForegroundColor Green "Restarting in 20 seconds! (W11_OOBEcmd)"
 Start-Sleep -Seconds 20
 wpeutil reboot
